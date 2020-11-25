@@ -35,7 +35,7 @@ const employeeList = [];
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
 
-function addManager() {
+function start() {
     inquirer.prompt([
         {
             type: "input",
@@ -62,7 +62,7 @@ function addManager() {
         const manager = new Manager(answers.name, answers.id, answers.email, answers.office);
         employeeList.push(manager);
         addTeamMember();
-    }) 
+    }); 
 };
 
 function addTeamMember() {
@@ -75,14 +75,18 @@ function addTeamMember() {
         }
       ])
       .then(answers => {
-        if (answers.member === "Engineer") {
+        switch(answers.member){
+            case "Engineer":
             addEngineer();
-        } else if (answers.member === "Intern") {
+            break;
+            case "Intern":
             addIntern();
-        } else if (answers.member === "I'm done adding team members") {
+            break;
+            case "I'm done adding team members":
             createTeam();
+            break;
         }
-    })
+    });
 };
 
 function addEngineer() {
@@ -147,9 +151,13 @@ function addIntern() {
 
 // Needs work
 function createTeam() {
-    console.log("Team Created!".green);
-    fs.writeFile(render(outputPath), employeeList);
+    console.log("Team Created!");
+    
+    if(!fs.existsSync(OUTPUT_DIR)){
+        fs.mkdirSync(OUTPUT_DIR)
+    }
+    fs.writeFileSync(outputPath, render(employeeList));
 };
 
-addManager();
+start();
 

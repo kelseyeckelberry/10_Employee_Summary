@@ -18,8 +18,10 @@ npm i
 ## Usage
 Run the app.js file provided and enter employee information when prompted.
 
-[Terminal Example](...)
-[Screenshot](...)
+![Terminal Example](./photos/create_team.gif)
+
+Below is an example of the output of this app:
+![Screenshot](./photos/team.png)
 
 ## Tests
 To run tests, run the following command.
